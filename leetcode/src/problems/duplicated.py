@@ -17,4 +17,4 @@ def solution(A):
 
 
 if __name__ == "__main__":
-    print solution(["one", "two", "one", "five", "five"])
+    print(solution(["one", "two", "one", "five", "five"]))
