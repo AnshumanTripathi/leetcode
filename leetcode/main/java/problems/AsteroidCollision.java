@@ -5,11 +5,11 @@ import java.util.Stack;
 
 public class AsteroidCollision {
 
-  public static void main(String[] args) {
-    System.out.println(Arrays.toString(asteroidCollision(new int[]{1,-2,-2,-2})));
-  }
+//  public static void main(String[] args) {
+//    System.out.println(Arrays.toString(asteroidCollision(new int[]{1,-2,-2,-2})));
+//  }
 
-  public static int[] asteroidCollision(int[] asteroids) {
+  public int[] asteroidCollision(int[] asteroids) {
     Stack<Integer> stack = new Stack<>();
 
     for (int asteroid : asteroids) {
@@ -28,7 +28,7 @@ public class AsteroidCollision {
     return result;
   }
 
-  public static void collide(Stack<Integer> stack) {
+  private void collide(Stack<Integer> stack) {
     if (stack.size() > 1) {
       int n = stack.pop();
       int top = stack.peek();
