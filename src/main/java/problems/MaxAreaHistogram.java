@@ -2,16 +2,10 @@ package problems;
 
 import java.util.Stack;
 
+// https://leetcode.com/problems/largest-rectangle-in-histogram/
 public class MaxAreaHistogram {
 
-  public static void main(String[] args) {
-//    System.out.println(largestRectangleArea(new int[]{ 6, 2, 5, 4, 5, 1, 6 }));
-//    System.out.println(largestRectangleArea(new int[]{ 1,2,4 }));
-    System.out.println(largestRectangleArea(new int[]{ 2,1,5,6,2,3 }));
-//    System.out.println(largestRectangleArea(new int[]{ 0,0 }));
-  }
-
-  public static int largestRectangleArea(int[] heights) {
+  public int largestRectangleArea(int[] heights) {
     if (heights.length == 0) {
       return 0;
     }

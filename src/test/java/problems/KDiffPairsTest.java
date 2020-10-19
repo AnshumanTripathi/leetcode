@@ -3,7 +3,7 @@ package problems;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TestKDiffPairs {
+public class KDiffPairsTest {
     private final KDiffPairs kDiffPairs = new KDiffPairs();
 
     @Test
