@@ -12,5 +12,4 @@ public class AsteroidCollisionTest {
         int[] result = asteroidCollision.asteroidCollision(new int[]{1, -2, -2, -2});
         Assert.assertArrayEquals(new int[]{-2, -2, -2}, result);
     }
-
 }

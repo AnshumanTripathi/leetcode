@@ -5,20 +5,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+// https://leetcode.com/problems/k-diff-pairs-in-an-array/
 public class KDiffPairs {
 
-  public static void main(String[] args) {
-//    System.out.println(findPairs(new int[]{3,1,4,1,5}, 2));
-//    System.out.println(myPairs(new int[]{3,1,4,1,5}, 2));
-//    System.out.println(findPairs(new int[]{1,2,3,4,5}, 1));
-//    System.out.println(myPairs(new int[]{1,2,3,4,5}, 1));
-//    System.out.println(findPairs(new int[]{1,3,1,5,4}, 2));
-    System.out.println(findPairs(new int[]{1,1,1,2,1}, 1));
-//    System.out.println(myPairs(new int[]{1,3,1,5,4}, 2));
-
-  }
-
-  public static int findPairs(int[] nums, int k) {
+  public int findPairs(int[] nums, int k) {
     if (k < 0) {
       return 0;
     }

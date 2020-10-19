@@ -8,11 +8,7 @@ public class GenerateParenthesis {
 
   private static final List<String> output = new ArrayList<>();
 
-  public static void main(String[] args) {
-    System.out.println(Arrays.toString(generateParenthesis(3).toArray(new String[0])));
-  }
-
-  public static List<String> generateParenthesis(int n) {
+  public List<String> generateParenthesis(int n) {
     if (n == 0) {
       return output;
     }

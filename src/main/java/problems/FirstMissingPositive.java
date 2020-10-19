@@ -5,19 +5,7 @@ import java.util.Set;
 
 public class FirstMissingPositive {
 
-  public static void main(String[] args) {
-    System.out.println(firstMissingPositive(new int[]{1,2,0}));
-    System.out.println(firstMissingPositive(new int[]{3,4,-1,1}));
-    System.out.println(firstMissingPositive(new int[]{7,8,9,11,12}));
-    System.out.println(firstMissingPositive(new int[]{0, 1, 2}));
-
-    System.out.println(findFast(new int[]{1,2,0}));
-    System.out.println(findFast(new int[]{3,4,-1,1}));
-    System.out.println(findFast(new int[]{7,8,9,11,12}));
-    System.out.println(findFast(new int[]{0, 1, 2}));
-  }
-
-  public static int firstMissingPositive(int[] nums) {
+  public int firstMissingPositive(int[] nums) {
     int contains = 0;
     for (int num : nums) {
       if (num == 1) {
@@ -61,7 +49,7 @@ public class FirstMissingPositive {
     return nums.length + 1;
   }
 
-  public static int findFast(int[] nums) {
+  public int findFast(int[] nums) {
     Set<Integer> numSet = new HashSet<>();
     for (int num : nums) {
       numSet.add(num);

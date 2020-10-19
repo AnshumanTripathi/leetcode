@@ -181,24 +181,4 @@ class Results {
   public int getTimes() {
     return times;
   }
-
-  public static void main(String[] args) {
-    AutocompleteSystem autocompleteSystem = new AutocompleteSystem(
-        new String[]{"i love you", "island", "ironman", "i love leetcode"},
-        new int[]{5, 3, 2, 2});
-    autocompleteSystem.input('i').forEach(System.out::println);
-    System.out.println();
-    autocompleteSystem.input(' ').forEach(System.out::println);
-    System.out.println();
-    autocompleteSystem.input('a').forEach(System.out::println);
-    System.out.println();
-    autocompleteSystem.input('#').forEach(System.out::println);
-    autocompleteSystem.input('i').forEach(System.out::println);
-    System.out.println();
-    autocompleteSystem.input(' ').forEach(System.out::println);
-    System.out.println();
-    autocompleteSystem.input('a').forEach(System.out::println);
-    System.out.println();
-    autocompleteSystem.input('#').forEach(System.out::println);
-  }
 }

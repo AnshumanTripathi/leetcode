@@ -6,14 +6,7 @@ import java.util.Map;
 public class FirstNonRepeatingCharacter {
   private static final String INPUT = "aaabbbcddd";
 
-  public static void main(String[] args) {
-    System.out.println("Using Brute force: " + bruteForce(INPUT));
-    System.out.println("Using Maps: " + usingMaps(INPUT));
-    System.out.println("Using Char arrays: " + usingCharArray(INPUT));
-    System.out.println("Using IndexOf: " + usingIndexOf(INPUT));
-  }
-
-  private static char bruteForce(final String input) {
+  public char bruteForce(final String input) {
     for (int i = 0; i < input.length(); i++) {
       boolean seen = false;
       for (int j = 0; j < input.length(); j++) {
@@ -27,7 +20,7 @@ public class FirstNonRepeatingCharacter {
     return '_';
   }
 
-  private static char usingMaps(final String input) {
+  public char usingMaps(final String input) {
     final Map<Character, Integer> lookupMap = new HashMap<>();
     for (int i = 0; i < input.length(); i++) {
       if (lookupMap.containsKey(input.charAt(i))) {
@@ -45,7 +38,7 @@ public class FirstNonRepeatingCharacter {
     return '_';
   }
 
-  private static char usingCharArray(final String input) {
+  public char usingCharArray(final String input) {
     int[] alphabet = new int[26];
     for (char c : input.toCharArray()) {
       alphabet[c - 'a']++;
@@ -58,7 +51,7 @@ public class FirstNonRepeatingCharacter {
     return '_';
   }
 
-  private static char usingIndexOf(final String input) {
+  public char usingIndexOf(final String input) {
     for (int i = 0; i < input.length(); i++) {
       if (input.indexOf(input.charAt(i)) == input.lastIndexOf(input.charAt(i))) {
         return input.charAt(i);

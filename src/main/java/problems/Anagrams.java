@@ -2,24 +2,16 @@ package problems;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class FindAnagrams {
+public class Anagrams {
 
-  public static void main(String[] args) {
-//    findAnagramsOptimized("cbaebabacd", "abc").forEach(System.out::println);
-//    findAnagramsArray("cbaebabacd", "abc").forEach(System.out::println);
-//    System.out.println();
-//    findAnagrams("aaaaaaaaaa", "aaaaaaaaaaaaa").forEach(System.out::println);
-    System.out.println(isValidAnagram("anagram", "nagaram"));
-    System.out.println(isValidAnagram("cat", "rat"));
-  }
-
-  public static List<Integer> findAnagramsArray(String s, String p) {
+  public List<Integer> findAnagramsArray(String s, String p) {
     final List<Integer> indices = new ArrayList<>();
     if (p.length() >= s.length()) {
       return indices;
@@ -53,7 +45,7 @@ public class FindAnagrams {
     return indices;
   }
 
-  public static List<Integer> findAnagramsOptimized(String s, String p) {
+  public List<Integer> findAnagramsOptimized(String s, String p) {
     final List<Integer> indices = new ArrayList<>();
     if (p.length() >= s.length()) {
       return indices;
@@ -92,39 +84,8 @@ public class FindAnagrams {
     return indices;
   }
 
-  public static List<Integer> findAnagrams(String s, String p) {
-    List<Integer> indices = new ArrayList<>();
-    if (s.length() <= p.length()) {
-      return indices;
-    }
-    Set<String> anagramsSet = new HashSet<>();
-    findAnagrams("", p, anagramsSet);
-    for (String candidate : anagramsSet) {
-      int start = 0;
-      int end = p.length();
-      while(end <= s.length()) {
-        if(s.substring(start, end).equals(candidate)) {
-          indices.add(start);
-        }
-        start++;
-        end = start + p.length();
-      }
-    }
-    return indices;
-  }
 
-  public static void findAnagrams(String prefix, String input, Set<String> anagrams) {
-    if (input.length() == 0) {
-      anagrams.add(prefix);
-      return;
-    }
-    for (int i = 0; i < input.length(); i++) {
-      findAnagrams(prefix + input.charAt(i), input.substring(0, i) +
-          input.substring(i+1), anagrams);
-    }
-  }
-
-  public static boolean isValidAnagram(String s, String t) {
+  public boolean isValidAnagram(String s, String t) {
     if (t.length() < s.length() || t.length() > s.length()) {
       return false;
     }
@@ -139,5 +100,55 @@ public class FindAnagrams {
       tArray[tChar - 'a']++;
     }
     return Arrays.equals(sArray, tArray);
+  }
+
+  public List<List<String>> groupAnagrams(String[] strs) {
+    final List<List<String>> result = new ArrayList<>();
+    if (strs.length == 0) {
+      return result;
+    }
+    if (strs.length == 1) {
+      result.add(Collections.singletonList(strs[0]));
+      return result;
+    }
+
+    Map<String, List<String>> anagramMap = new HashMap<>();
+    for (String word : strs) {
+      int[] alphabet = new int[26];
+      for (char wordChar : word.toCharArray()) {
+        alphabet[wordChar - 'a']++;
+      }
+
+      final StringBuilder builder = new StringBuilder();
+      for (int count : alphabet) {
+        builder.append(count);
+      }
+
+      String key = builder.toString();
+      if (!anagramMap.containsKey(key)) {
+        anagramMap.put(key, new ArrayList<>());
+      }
+      anagramMap.get(key).add(word);
+    }
+
+    result.addAll(anagramMap.values());
+
+    return result;
+  }
+
+//  https://leetcode.com/problems/find-anagram-mappings/
+  public int[] anagramMappings(int[] A, int[] B) {
+    Map<Integer, Integer> aMap = new HashMap<>();
+
+    for (int i = 0; i < B.length; i++) {
+      aMap.put(B[i], i);
+    }
+
+    int[] result = new int[A.length];
+    for (int i = 0; i < A.length; i++) {
+      result[i] = aMap.get(A[i]);
+    }
+
+    return result;
   }
 }
