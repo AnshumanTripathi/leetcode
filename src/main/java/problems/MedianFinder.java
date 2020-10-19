@@ -1,55 +1,36 @@
 package problems;
 
+import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+// https://leetcode.com/problems/find-median-from-data-stream/
 public class MedianFinder {
-  private Queue<Integer> minPq = new PriorityQueue<>();
-  private Queue<Integer> maxPq = new PriorityQueue<>((a1, a2) -> a2 - a1);
 
+  // max queue is always larger or equal to min queue
+  PriorityQueue<Integer> min = new PriorityQueue<>();
+  PriorityQueue<Integer> max = new PriorityQueue<>(1000, Collections.reverseOrder());
+  // Adds a number into the data structure.
   public void addNum(int num) {
-    maxPq.offer(num);
-    minPq.offer(maxPq.poll());
-    if (maxPq.size() < minPq.size()) {
-      maxPq.offer(minPq.poll());
+    max.offer(num);
+    min.offer(max.poll());
+    if (max.size() < min.size()){
+      max.offer(min.poll());
     }
   }
 
+  // Returns the median of current data stream
   public double findMedian() {
-    if (maxPq.size() == minPq.size()) {
-      return (maxPq.peek() + minPq.peek()) / 2.0;
+    if (max.isEmpty() && min.isEmpty()) {
+      return 0;
     }
-    return maxPq.peek();
-  }
-
-  public static void main(String[] args) {
-    MedianFinder finder = new MedianFinder();
-    finder.addNum(1);
-    finder.addNum(2);
-    System.out.println(finder.findMedian());
-    finder.addNum(3);
-    System.out.println(finder.findMedian());
-
-//    MedianFinder finder = new MedianFinder();
-//    finder.addNum(1);
-//    System.out.println(finder.findMedian());
-
-//    MedianFinder finder = new MedianFinder();
-//    finder.addNum(2);
-//    System.out.println(finder.findMedian());
-//    finder.addNum(3);
-//    System.out.println(finder.findMedian());
-
-//    MedianFinder finder = new MedianFinder();
-//    finder.addNum(-1);
-//    System.out.println(finder.findMedian());
-//    finder.addNum(-2);
-//    System.out.println(finder.findMedian());
-//    finder.addNum(-3);
-//    System.out.println(finder.findMedian());
-//    finder.addNum(-4);
-//    System.out.println(finder.findMedian());
-//    finder.addNum(-5);
-//    System.out.println(finder.findMedian());
+    if (max.size() == min.size()) {
+      return (max.peek() + min.peek()) /  2.0;
+    } else {
+      if (max.peek() == null) {
+        return 0.0;
+      }
+      return max.peek();
+    }
   }
 }

@@ -1,5 +1,6 @@
 package problems;
 
+//This is a WIP https://leetcode.com/problems/maximal-rectangle/solution/
 public class MaximalRectangle {
 
 

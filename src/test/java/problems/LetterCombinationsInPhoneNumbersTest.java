@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class TestLetterCombinationsInPhoneNumbers {
+public class LetterCombinationsInPhoneNumbersTest {
 
     private final LetterCombinationsInPhoneNumbers letterCombinationsInPhoneNumbers = new LetterCombinationsInPhoneNumbers();
 

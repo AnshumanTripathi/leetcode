@@ -3,12 +3,10 @@ package problems;
 import java.util.HashSet;
 import java.util.Set;
 
+// https://leetcode.com/problems/longest-substring-without-repeating-characters/
 public class LongestSubstringWithoutRepeat {
-  public static void main(String[] args) {
-    System.out.println(lengthOfLongestSubstring("pwwkew"));
-  }
 
-  public static int lengthOfLongestSubstring(String s) {
+  public int lengthOfLongestSubstring(String s) {
     final Set<Character> characterSet = new HashSet<>();
     int i = 0, j = 0;
     int largestString = 0;
