@@ -1,7 +1,5 @@
 package datastructures.linkedlist;
 
-import java.util.Objects;
-
 public class IntegerList extends LinkedList<Integer> {
   public Node<Integer> sort() {
     return sort(this.head);

@@ -1,7 +1,6 @@
 package problems;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class MinMeetingRooms {
   public static void main(String[] args) {
