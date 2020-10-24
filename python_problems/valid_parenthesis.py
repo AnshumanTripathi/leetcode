@@ -15,7 +15,8 @@ def is_valid(input_expr) -> bool:
         if i in brackets_dict:
             if len(stack) == 0:
                 return False
-            elif brackets_dict[i] != i:
+            bracket = stack.pop()
+            if brackets_dict[i] != bracket:
                 return False
         else:
             stack.append(i)
