@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  setup:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,27 +18,17 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
       - name: Setup python
         uses: actions/setup-python@v2
         with:
           python-version: '3.7'
-      - name: Install Python packages
+      - name: Install python packages
         run: |
           cd python_problems
           pip install -r requirements.txt
-
-  run-junit-tests:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
-
-  run-pytests:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
       - name: Run pytests
         run: |
-          cd python_problems
+          cd python_problems/tests
           pytest
