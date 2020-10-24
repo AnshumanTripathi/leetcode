@@ -4,19 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+// https://leetcode.com/problems/valid-parentheses/
 public class ValidParenthesis {
-  static final Map<Character, Character> brackets = new HashMap<>();
-  public static void main(String[] args) {
+  private static final Map<Character, Character> brackets = new HashMap<>();
+
+  public ValidParenthesis() {
     brackets.put(')', '(');
     brackets.put(']', '[');
     brackets.put('}', '{');
-    System.out.println(isValid("()[]{}"));
-    System.out.println(isValid("(]"));
-    System.out.println(isValid("{[]}"));
-    System.out.println(isValid("([)]"));
-    System.out.println(isValid("()"));
   }
-  public static boolean isValid(String s) {
+
+  public boolean isValid(String s) {
     final Stack<Character> charStack = new Stack<>();
     if (s.length() == 0) {
       return true;
