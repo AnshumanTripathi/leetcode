@@ -5,6 +5,10 @@ representing if the commitsh is good. Find the first bad commitsh.
 
 
 def bisect(log):
+    if len(log) == 0:
+        return ""
+    if len(log) == 1:
+        return "" if log[0].get("good") else log[0].get("sha")
     start = 0
     end = len(log)
     while start < end:
@@ -13,4 +17,8 @@ def bisect(log):
             start = mid + 1
         else:
             end = mid - 1
+
+    if log[start].get("good"):
+        return ""
+
     return log[start].get("sha")
