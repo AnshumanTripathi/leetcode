@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// https://leetcode.com/problems/generate-parentheses/
 public class GenerateParenthesis {
 
   private static final List<String> output = new ArrayList<>();
