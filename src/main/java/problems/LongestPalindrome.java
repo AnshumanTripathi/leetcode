@@ -1,40 +1,43 @@
 package problems;
 
-// This is still WIP. https://leetcode.com/problems/longest-palindromic-substring/
+// https://leetcode.com/problems/longest-palindromic-substring/
+// Solution from https://www.programcreek.com/2013/12/leetcode-solution-of-longest-palindromic-substring-java/
 public class LongestPalindrome {
 
-  public static void main(String[] args) {
-    System.out.println(longestPalindrome("cbbd"));
-  }
-
-  public static String longestPalindrome(String s) {
-    int right = 1;
-    String largestPalindrome = "";
-    while (right != s.length()) {
-      StringBuilder currSting = new StringBuilder();
-      for (int i = 0; i < right; i++) {
-        currSting.append(s.charAt(i));
-      }
-      if (isPalindrome(currSting.toString())) {
-        if (largestPalindrome.length() < currSting.length()) {
-          largestPalindrome = currSting.toString();
+    public String longestPalindrome(String s) {
+        if (s.isEmpty()) {
+            return null;
         }
-      }
-      right++;
-    }
-    return largestPalindrome;
-  }
 
-  public static boolean isPalindrome(String s) {
-    int left = 0;
-    int right = s.length() - 1;
-    while (left <= right) {
-      if (s.charAt(left) != s.charAt(right)) {
-        return false;
-      }
-      left++;
-      right--;
+        if (s.length() == 1) {
+            return s;
+        }
+
+        String longest = s.substring(0, 1);
+        for (int i = 0; i < s.length(); i++) {
+            // get longest palindrome with center of i
+            String tmp = helper(s, i, i);
+            if (tmp.length() > longest.length()) {
+                longest = tmp;
+            }
+
+            // get longest palindrome with center of i, i+1
+            tmp = helper(s, i, i + 1);
+            if (tmp.length() > longest.length()) {
+                longest = tmp;
+            }
+        }
+
+        return longest;
     }
-    return true;
-  }
+
+    // Given a center, either one letter or two letter,
+    // Find longest palindrome
+    private String helper(String s, int begin, int end) {
+        while (begin >= 0 && end <= s.length() - 1 && s.charAt(begin) == s.charAt(end)) {
+            begin--;
+            end++;
+        }
+        return s.substring(begin + 1, end);
+    }
 }
