@@ -1,6 +1,9 @@
-from python_problems import longest_non_repeating_substring as longest
+from python_problems.longest_non_repeating_substring import LongestNonRepeating
+
 
 def test_longest_repeating_substring():
-    assert longest.longest_sub("pwwkew") == 3
-    assert longest.longest_sub("") == 0
-    assert longest.longest_sub("abcabcd") == 4
+    assert LongestNonRepeating("pwwkew").longest_subs() == 3
+    assert LongestNonRepeating("").longest_subs() == 0
+    assert LongestNonRepeating("abcdabc").longest_subs() == 4
+    assert LongestNonRepeating("dvdf").longest_subs() == 3
+
