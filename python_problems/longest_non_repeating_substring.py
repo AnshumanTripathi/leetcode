@@ -12,6 +12,3 @@ def longest_subs(s):
             checker.remove(s[i])
             i += 1
     return longest
-
-if __name__ == "__main__":
-    print(longest_subs(s))
