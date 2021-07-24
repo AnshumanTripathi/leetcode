@@ -6,6 +6,7 @@ import java.util.Set;
 /**
  * Given an array of integers where all the elements of the integers are smaller than the length,
  * find the first duplicate
+ * https://leetcode.com/problems/find-the-duplicate-number/
  */
 public class FirstDuplicate {
 
