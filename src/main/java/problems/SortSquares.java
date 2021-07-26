@@ -5,6 +5,7 @@ import java.util.Arrays;
 /**
  * Problem Statement:
  * Given a sorted array of integers, return a sorted array of squares of the given array.
+ * https://leetcode.com/problems/squares-of-a-sorted-array/
  */
 
 public class SortSquares {
