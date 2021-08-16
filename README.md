@@ -2,5 +2,5 @@
 
 A working repository of reusable data structures with implementations of Leetcode problems.
 
-This project is built using Java 11.
-Problems are solved in Java 11 and Python 3.9.
+- This project is built using Java 11.
+- Problems are solved in Java 11 and Python 3.9.
