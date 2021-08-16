@@ -35,7 +35,7 @@ class LinkedList:
             i = 0
             prev_node = None
             next_node = self.head
-            while pos != i:
+            while pos != i and next_node is not None:
                 i = i + 1
                 prev_node = next_node
                 next_node = next_node.next
@@ -57,3 +57,10 @@ class LinkedList:
             output.append(node.value)
             node = node.next
         return output
+
+    def remove(self, pos):
+        """
+
+        :param pos:
+        :return:
+        """

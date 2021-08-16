@@ -13,3 +13,7 @@ def test_linked_list_crud():
     linked_list.add("hello", 1)
 
     assert linked_list.get_linked_list() == [2, "hello", 1]
+
+    # Add "world" at the end of the linked list
+    linked_list.add("world", -1)
+    assert linked_list.get_linked_list() == [2, "hello", 1, "world"]
