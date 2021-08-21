@@ -5,28 +5,29 @@ public class IntegerList extends LinkedList<Integer> {
     return sort(this.head);
   }
 
+  // Ref: https://www.geeksforgeeks.org/merge-sort-for-linked-list/
   public Node<Integer> sort(Node<Integer> node) {
     if (node == null || node.getNext() == null) {
       return node;
     }
-    Node<Integer> fast = node;
-    Node<Integer> slow = node;
-    Node<Integer> temp = node;
 
-    while (fast.getNext() != null && fast.getNext().getNext() != null) {
-      temp = slow;
-      slow = slow.getNext();
-      fast = fast.getNext().getNext();
-    }
-    temp.next(null);
-    Node<Integer> leftList = sort(node);
-    Node<Integer> rightList = sort(slow);
+    // Get the middle node and split the list from the middle
+    Node<Integer> midNode = getMiddleNode(node);
+    Node<Integer> midNext = midNode.getNext();
 
-    return merge(leftList, rightList);
+    midNode.next(null);
+
+    // Recursively split the left and right lists from the middle
+    final Node<Integer> leftList = sort(node);
+    final Node<Integer> rightList = sort(midNext);
+
+    // Sort and merge all the divided lists
+    Node<Integer> sorted = merge(leftList, rightList);
+    return sorted;
   }
 
   private Node<Integer> merge(Node<Integer> leftList, Node<Integer> rightList) {
-    Node<Integer> sorted = new Node<>(0);
+    Node<Integer> sorted = null;
     if (leftList == null) {
       return rightList;
     }
@@ -41,6 +42,26 @@ public class IntegerList extends LinkedList<Integer> {
       sorted = rightList;
       sorted.next(merge(leftList, rightList.getNext()));
     }
-    return sorted.getNext();
+    return sorted;
+  }
+
+  private Node<Integer> getMiddleNode(final Node<Integer> node) {
+    if (node == null) {
+      return null;
+    }
+
+    if (node.getNext() == null) {
+      return node;
+    }
+
+    Node<Integer> fast = node;
+    Node<Integer> slow = node;
+
+    while (fast.getNext() != null && fast.getNext().getNext() != null) {
+      slow = slow.getNext();
+      fast = fast.getNext().getNext();
+    }
+
+    return slow;
   }
 }
