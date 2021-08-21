@@ -4,16 +4,33 @@ from python_problems.data_structures.linked_list import LinkedList
 def test_linked_list_crud():
     linked_list = LinkedList()
 
+    expected_list = []
     linked_list.add(1)
     linked_list.add(2)
-    assert len(linked_list.get_linked_list()) != 0
-    assert linked_list.get_linked_list() == [2, 1]
+    assert linked_list.length != 0
+    expected_list.append(2)
+    expected_list.append(1)
 
-    # Add "hello" at index 1
-    linked_list.add("hello", 1)
+    assert linked_list.get_linked_list() == expected_list
 
-    assert linked_list.get_linked_list() == [2, "hello", 1]
+    # Add 'hello' at index 1
+    linked_list.add('hello', 1)
+
+    expected_list.insert(1, 'hello')
+
+    assert linked_list.get_linked_list() == expected_list
 
     # Add "world" at the end of the linked list
-    linked_list.add("world", -1)
-    assert linked_list.get_linked_list() == [2, "hello", 1, "world"]
+    linked_list.add('world', -1)
+    expected_list.insert(len(expected_list), 'world')
+    assert linked_list.get_linked_list() == expected_list
+
+    linked_list.remove(-1)
+    expected_list.remove('world')
+    assert linked_list.get_linked_list() == expected_list
+
+    linked_list.add('world', -1)
+    expected_list.insert(len(expected_list), 'world')
+    linked_list.remove(2)
+    expected_list.remove(1)
+    assert linked_list.get_linked_list() == expected_list
