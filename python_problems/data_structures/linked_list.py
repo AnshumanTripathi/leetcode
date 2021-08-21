@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from copy import deepcopy
 
 
 # https://docs.python.org/3/library/dataclasses.html
@@ -18,9 +19,26 @@ class LinkedList:
 
     def __init__(self, head: Node = None):
         self.head = head
-        self.length: int = 0
+        self.length: int = self._get_length(head)
 
-    def add(self, value, pos=None):
+    @staticmethod
+    def _get_length(node: Node) -> int:
+        """
+        Evaluate the length of the list from the given node
+        :param node: The input node object
+        :return: length of the list
+        """
+
+        if not node:
+            return 0
+
+        length = 0
+        while node:
+            length = length + 1
+            node = node.next
+        return length
+
+    def add(self, value, pos: int = None):
         """
         Add the given value to the LinkedList. By default a new value is added at the starting of the list.
         :param value: Value to be added
@@ -31,6 +49,7 @@ class LinkedList:
         if not self.head:
             # If there the list is empty set the new node as the head
             self.head = node
+            self.length = self.length + 1
             return
         elif pos is not None:
             i = 0
@@ -60,7 +79,7 @@ class LinkedList:
             node = node.next
         return output
 
-    def remove(self, pos):
+    def remove(self, pos: int):
         """
         Remove an element from the linked list.
         :param pos: Position of the element in the linked list. If the value is less than 0 then, last node of the list
@@ -89,3 +108,83 @@ class LinkedList:
         else:
             prev_node.next = next_node.next
         self.length = self.length - 1
+
+    def sort(self) -> Node:
+        """
+        Sort the Linked list use a merge sort. This is only support for Integer type lists. A mixed typed list will
+        raise Exception. This method returns a new node which contains all the sorted nodes linked to it. We need to do
+        this because python creates bindings between objects, so keep the current list's head pristine, we need to
+        deepcopy the head and sort the nodes of the copied head.
+        :return: A Node object containing the first element of the list in the naturally sorted order followed by all
+                 other elements in the naturally sorted order.
+        """
+
+        return self._sort(deepcopy(self.head))
+
+    def _sort(self, node: Node) -> Node:
+        """
+        Recursively split the list from the middle
+        :param node:
+        :return: A
+        """
+        if not node:
+            raise Exception('Cannot sort an empty linked list')
+
+        if not node.next:
+            return node
+
+        mid_node: Node = self._get_middle_node(node)
+        mid_next: Node = mid_node.next
+
+        mid_node.next = None
+        left_list = self._sort(node)
+        right_list = self._sort(mid_next)
+
+        return self._merge_sort(left_list, right_list)
+
+    def _merge_sort(self, left_list: Node, right_list: Node) -> Node:
+        if not left_list:
+            return right_list
+
+        if not right_list:
+            return left_list
+
+        if not isinstance(left_list.value, int) and not isinstance(right_list.value, int):
+            raise TypeError('Sorting only supported for integer type lists')
+
+        if left_list.value <= right_list.value:
+            result = left_list
+            result.next = self._merge_sort(left_list.next, right_list)
+        else:
+            result = right_list
+            result.next = self._merge_sort(left_list, right_list.next)
+
+        return result
+
+    def _get_middle_node(self, node: Node) -> Node:
+        """
+        Get the middle node of the list using Flyod's approach
+        :param node: Starting node
+        :return: The middle node
+        """
+        if not node:
+            raise Exception('Cannot get middle for `None` node.')
+
+        if not node.next:
+            return node
+
+        slow: Node = node
+        fast: Node = node
+
+        while fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        return slow
+
+    def clear(self):
+        """
+        Empty the list
+        """
+        self.head = None
+        self.length = 0

@@ -34,3 +34,25 @@ def test_linked_list_crud():
     linked_list.remove(2)
     expected_list.remove(1)
     assert linked_list.get_linked_list() == expected_list
+
+    linked_list.clear()
+
+    linked_list.add(5)
+    linked_list.add(3)
+    linked_list.add(1)
+    linked_list.add(2)
+
+    expected_list.clear()
+    expected_list.append(1)
+    expected_list.append(2)
+    expected_list.append(3)
+    expected_list.append(5)
+
+    sorted_node = linked_list.sort()
+
+    sorted_list = LinkedList(sorted_node)
+
+    assert sorted_list.get_linked_list() == expected_list
+
+
+
