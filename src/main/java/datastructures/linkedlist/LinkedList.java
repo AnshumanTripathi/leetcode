@@ -111,6 +111,9 @@ public class LinkedList<T> {
     length--;
   }
 
+  /**
+   * Reverse the linked list
+   */
   public void reverse() {
     Node<T> prev = null;
     Node<T> current = this.head;
