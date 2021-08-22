@@ -1,4 +1,4 @@
-from python_problems.data_structures.linked_list import LinkedList
+from python_problems.data_structures.linked_list import LinkedList, sort
 
 
 def test_linked_list_crud():
@@ -48,9 +48,7 @@ def test_linked_list_crud():
     expected_list.append(3)
     expected_list.append(5)
 
-    sorted_node = linked_list.sort()
-
-    sorted_list = LinkedList(sorted_node)
+    sorted_list = sort(linked_list)
 
     assert sorted_list.get_linked_list() == expected_list
 

@@ -109,82 +109,93 @@ class LinkedList:
             prev_node.next = next_node.next
         self.length = self.length - 1
 
-    def sort(self) -> Node:
-        """
-        Sort the Linked list use a merge sort. This is only support for Integer type lists. A mixed typed list will
-        raise Exception. This method returns a new node which contains all the sorted nodes linked to it. We need to do
-        this because python creates bindings between objects, so keep the current list's head pristine, we need to
-        deepcopy the head and sort the nodes of the copied head.
-        :return: A Node object containing the first element of the list in the naturally sorted order followed by all
-                 other elements in the naturally sorted order.
-        """
-
-        return self._sort(deepcopy(self.head))
-
-    def _sort(self, node: Node) -> Node:
-        """
-        Recursively split the list from the middle
-        :param node:
-        :return: A
-        """
-        if not node:
-            raise Exception('Cannot sort an empty linked list')
-
-        if not node.next:
-            return node
-
-        mid_node: Node = self._get_middle_node(node)
-        mid_next: Node = mid_node.next
-
-        mid_node.next = None
-        left_list = self._sort(node)
-        right_list = self._sort(mid_next)
-
-        return self._merge_sort(left_list, right_list)
-
-    def _merge_sort(self, left_list: Node, right_list: Node) -> Node:
-        if not left_list:
-            return right_list
-
-        if not right_list:
-            return left_list
-
-        if not isinstance(left_list.value, int) and not isinstance(right_list.value, int):
-            raise TypeError('Sorting only supported for integer type lists')
-
-        if left_list.value <= right_list.value:
-            result = left_list
-            result.next = self._merge_sort(left_list.next, right_list)
-        else:
-            result = right_list
-            result.next = self._merge_sort(left_list, right_list.next)
-
-        return result
-
-    def _get_middle_node(self, node: Node) -> Node:
-        """
-        Get the middle node of the list using Flyod's approach
-        :param node: Starting node
-        :return: The middle node
-        """
-        if not node:
-            raise Exception('Cannot get middle for `None` node.')
-
-        if not node.next:
-            return node
-
-        slow: Node = node
-        fast: Node = node
-
-        while fast.next and fast.next.next:
-            slow = slow.next
-            fast = fast.next.next
-
-        return slow
-
     def clear(self):
         """
         Empty the list
         """
         self.head = None
         self.length = 0
+
+
+"""
+---------------  Linked List Utility Functions -------------------------
+"""
+
+
+def sort(linked_list: LinkedList) -> LinkedList:
+    """
+    Sort the Linked list use a merge sort. This is only support for Integer type lists. A mixed typed list will
+    raise Exception. The input linked list's head is deep copied. We need to do this because python creates bindings
+    between objects, so keep the input list's head pristine, we need to deepcopy the head and sort the nodes of the
+    copied head.
+    :param linked_list: Sorting a given linked list
+    :return: A sorted linked list
+    """
+    list_head = deepcopy(linked_list.head)
+    sorted_head = _sort(list_head)
+    return LinkedList(sorted_head)
+
+
+def _sort(node: Node) -> Node:
+    """
+    :return: A Node object containing the first element of the list in the naturally sorted order followed by all
+    other elements in the naturally sorted order.
+    :param node:
+    :return: A
+    """
+    if not node:
+        raise Exception('Cannot sort an empty linked list')
+
+    if not node.next:
+        return node
+
+    mid_node: Node = _get_middle_node(node)
+    mid_next: Node = mid_node.next
+
+    mid_node.next = None
+    left_list = _sort(node)
+    right_list = _sort(mid_next)
+
+    return _merge_sort(left_list, right_list)
+
+
+def _merge_sort(left_list: Node, right_list: Node) -> Node:
+    if not left_list:
+        return right_list
+
+    if not right_list:
+        return left_list
+
+    if not isinstance(left_list.value, int) and not isinstance(right_list.value, int):
+        raise TypeError('Sorting only supported for integer type lists')
+
+    if left_list.value <= right_list.value:
+        result = left_list
+        result.next = _merge_sort(left_list.next, right_list)
+    else:
+        result = right_list
+        result.next = _merge_sort(left_list, right_list.next)
+
+    return result
+
+
+def _get_middle_node(node: Node) -> Node:
+    """
+    Get the middle node of the list using Flyod's approach
+    :param node: Starting node
+    :return: The middle node
+    """
+    if not node:
+        raise Exception('Cannot get middle for `None` node.')
+
+    if not node.next:
+        return node
+
+    slow: Node = node
+    fast: Node = node
+
+    while fast.next and fast.next.next:
+        slow = slow.next
+        fast = fast.next.next
+
+    return slow
