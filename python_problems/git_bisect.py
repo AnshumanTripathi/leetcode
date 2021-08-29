@@ -2,9 +2,10 @@
 Implement git bisect. Given a dictionary containing commitsh, and a boolean
 representing if the commitsh is good. Find the first bad commitsh.
 """
+from typing import List
 
 
-def bisect(log):
+def bisect(log: List) -> str:
     if len(log) == 0:
         return ""
     if len(log) == 1:
