@@ -35,14 +35,15 @@ def test_linked_list_crud():
     expected_list.remove(1)
     assert linked_list.get_linked_list() == expected_list
 
-    linked_list.clear()
 
+def test_linked_list_sort():
+    linked_list = LinkedList()
     linked_list.add(5)
     linked_list.add(3)
     linked_list.add(1)
     linked_list.add(2)
 
-    expected_list.clear()
+    expected_list = []
     expected_list.append(1)
     expected_list.append(2)
     expected_list.append(3)
@@ -51,6 +52,8 @@ def test_linked_list_crud():
     sorted_list = sort(linked_list)
 
     assert sorted_list.get_linked_list() == expected_list
+
+
 
 
 

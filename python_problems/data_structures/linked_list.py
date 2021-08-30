@@ -2,17 +2,16 @@ from dataclasses import dataclass
 from copy import deepcopy
 
 
-# https://docs.python.org/3/library/dataclasses.html
-@dataclass
-class Node:
-    """
-    A single node of the linked list containing a value and holding the next node
-    """
-    value: int
-    next: object = None
-
-
 class LinkedList:
+    # https://docs.python.org/3/library/dataclasses.html
+    @dataclass
+    class Node:
+        """
+        A single node of the linked list containing a value and holding the next node
+       """
+        value: int
+        next: object = None
+
     """
     An implementation of a LinkedList.
     """
@@ -45,7 +44,7 @@ class LinkedList:
         :param pos: If this parameter is provided, add the node on the the specific position. All remaining nodes after
                     provided position are shifted by one. The starting index of the linked list is 0 (zero).
         """
-        node = Node(value)
+        node = self.Node(value)
         if not self.head:
             # If there the list is empty set the new node as the head
             self.head = node
@@ -136,7 +135,7 @@ def sort(linked_list: LinkedList) -> LinkedList:
     return LinkedList(sorted_head)
 
 
-def _sort(node: Node) -> Node:
+def _sort(node: LinkedList.Node) -> LinkedList.Node:
     """
     :return: A Node object containing the first element of the list in the naturally sorted order followed by all
     other elements in the naturally sorted order.
@@ -149,8 +148,8 @@ def _sort(node: Node) -> Node:
     if not node.next:
         return node
 
-    mid_node: Node = _get_middle_node(node)
-    mid_next: Node = mid_node.next
+    mid_node: LinkedList.Node = _get_middle_node(node)
+    mid_next: LinkedList.Node = mid_node.next
 
     mid_node.next = None
     left_list = _sort(node)
@@ -159,7 +158,7 @@ def _sort(node: Node) -> Node:
     return _merge_sort(left_list, right_list)
 
 
-def _merge_sort(left_list: Node, right_list: Node) -> Node:
+def _merge_sort(left_list: LinkedList.Node, right_list: LinkedList.Node) -> LinkedList.Node:
     if not left_list:
         return right_list
 
@@ -179,7 +178,7 @@ def _merge_sort(left_list: Node, right_list: Node) -> Node:
     return result
 
 
-def _get_middle_node(node: Node) -> Node:
+def _get_middle_node(node: LinkedList.Node) -> LinkedList.Node:
     """
     Get the middle node of the list using Flyod's approach
     :param node: Starting node
@@ -191,11 +190,22 @@ def _get_middle_node(node: Node) -> Node:
     if not node.next:
         return node
 
-    slow: Node = node
-    fast: Node = node
+    slow: LinkedList.Node = node
+    fast: LinkedList.Node = node
 
     while fast.next and fast.next.next:
         slow = slow.next
         fast = fast.next.next
 
     return slow
+
+
+def has_cycle(linked_list: LinkedList) -> bool:
+    head_node = linked_list.head
+    seen = set()
+
+    while head_node.next:
+        if head_node in seen:
+            return True
+        head_node = head_node.next
+    return False
