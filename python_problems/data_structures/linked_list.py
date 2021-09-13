@@ -62,7 +62,7 @@ class LinkedList:
             temp = node
             while temp.next is not None:
                 length += 1
-                node = node.next
+                temp = temp.next
         elif start == 1:
             # There was a loop in the liked list. `length` should contain the length of the loop. Now we need to find
             # the length of the list from the `head` node to the starting of the loop i.e. `loop_start` node.
