@@ -1,4 +1,4 @@
-from python_problems.data_structures.linked_list import LinkedList, sort
+from python_problems.data_structures.linked_list import LinkedList, sort, get_cycle_start
 
 
 def test_linked_list_crud():
@@ -54,6 +54,16 @@ def test_linked_list_sort():
     assert sorted_list.get_linked_list() == expected_list
 
 
+def test_linked_list_cycle():
+    node1 = LinkedList.Node(1)
+    node2 = LinkedList.Node(2)
+    node3 = LinkedList.Node(3)
+    node4 = LinkedList.Node(4)
 
+    # Loop the list
+    node1.next = node2
+    node2.next = node3
+    node3.next = node4
+    node4.next = node2
 
-
+    assert get_cycle_start(LinkedList(node1)) == node2

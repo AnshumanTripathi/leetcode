@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from copy import deepcopy
+from typing import Optional
 
 
 class LinkedList:
@@ -11,6 +12,9 @@ class LinkedList:
        """
         value: int
         next: object = None
+
+        def __hash__(self) -> int:
+            return hash(self.value)
 
     """
     An implementation of a LinkedList.
@@ -30,11 +34,42 @@ class LinkedList:
 
         if not node:
             return 0
+        if not node.next:
+            return 1
 
         length = 0
-        while node:
-            length = length + 1
-            node = node.next
+        slow = node
+        fast = node
+        start = 0  # A flag to show that we are at the start of the linked list
+        loop_start = None
+
+        while fast.next and fast.next.next:
+            if slow == fast and start != 0:
+                # There is a loop in the linked list
+                loop_start = slow.next
+                length = 1
+                slow = slow.next
+                while slow != fast:
+                    slow = slow.next
+                    length = length + 1
+                break
+
+            slow = slow.next
+            fast = fast.next.next
+            start = 1
+        if start == 1 and length == 0:
+            # There was no loop in the list
+            temp = node
+            while temp.next is not None:
+                length += 1
+                node = node.next
+        elif start == 1:
+            # There was a loop in the liked list. `length` should contain the length of the loop. Now we need to find
+            # the length of the list from the `head` node to the starting of the loop i.e. `loop_start` node.
+            temp = node
+            while temp != loop_start:
+                length += 1
+                temp = temp.next
         return length
 
     def add(self, value, pos: int = None):
@@ -114,6 +149,25 @@ class LinkedList:
         """
         self.head = None
         self.length = 0
+
+    def __hash__(self) -> int:
+        return hash(self.head.value)
+
+    def __eq__(self, other: object) -> bool:
+        if isinstance(other, LinkedList):
+            return self.get_linked_list() == other.get_linked_list()
+        return False
+
+    def __ne__(self, other: object) -> bool:
+        if isinstance(other, LinkedList):
+            return self.get_linked_list() != other.get_linked_list()
+        return False
+
+    def __str__(self) -> str:
+        return "->".join(str(self.get_linked_list()))
+
+    def __repr__(self) -> str:
+        return f"LinkedList({self.head.value})"
 
 
 """
@@ -200,12 +254,31 @@ def _get_middle_node(node: LinkedList.Node) -> LinkedList.Node:
     return slow
 
 
-def has_cycle(linked_list: LinkedList) -> bool:
-    head_node = linked_list.head
-    seen = set()
+def get_cycle_start(linked_list: LinkedList) -> Optional[LinkedList.Node]:
+    """
+    If the linked list has
+    :param linked_list:
+    :return:
+    """
 
-    while head_node.next:
-        if head_node in seen:
-            return True
-        head_node = head_node.next
-    return False
+    slow_node = linked_list.head
+    fast_node = linked_list.head
+
+    while fast_node.next and fast_node.next.next:
+        slow_node = slow_node.next
+        fast_node = fast_node.next.next
+
+        if fast_node == slow_node:
+            break
+
+    if slow_node != fast_node:
+        # There is no loop
+        return None
+
+    slow_node = linked_list.head
+
+    while slow_node != fast_node:
+        slow_node = slow_node.next
+        fast_node = fast_node.next
+
+    return slow_node
