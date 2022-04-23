@@ -22,8 +22,7 @@ public class IntegerList extends LinkedList<Integer> {
     final Node<Integer> rightList = sort(midNext);
 
     // Sort and merge all the divided lists
-    Node<Integer> sorted = merge(leftList, rightList);
-    return sorted;
+    return merge(leftList, rightList);
   }
 
   private Node<Integer> merge(Node<Integer> leftList, Node<Integer> rightList) {
