@@ -1,4 +1,4 @@
-from python_problems.data_structures.linked_list import LinkedList, sort, get_cycle_start
+from python_problems.data_structures.linked_list import LinkedList, sort, get_cycle_start, remove_alternate_elements
 
 
 def test_linked_list_crud():
@@ -67,3 +67,16 @@ def test_linked_list_cycle():
     node4.next = node2
 
     assert get_cycle_start(LinkedList(node1)) == node2
+
+
+def test_remove_alternate_elements():
+    test_linked_list = LinkedList()
+    test_linked_list.add(1)
+    test_linked_list.add(2)
+    test_linked_list.add(3)
+    test_linked_list.add(4)
+    test_linked_list.add(5)
+
+    remove_alternate_elements(test_linked_list)
+
+    print(test_linked_list)

@@ -282,3 +282,21 @@ def get_cycle_start(linked_list: LinkedList) -> Optional[LinkedList.Node]:
         fast_node = fast_node.next
 
     return slow_node
+
+
+def remove_alternate_elements(linked_list: LinkedList):
+    """
+    Remove alternate elements with a list
+    :param linked_list: Input linked list
+    """
+    head = linked_list.head
+    if not linked_list.head:
+        return
+    node = head.next
+
+    if not node:
+        return
+
+    head.next = node.next
+
+    remove_alternate_elements(LinkedList(head))
