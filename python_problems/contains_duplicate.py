@@ -4,7 +4,7 @@ from typing import List
 
 class ContainsDuplicate:
     def contains_duplicate(self, nums: List[int]) -> bool:
-        seen = set(nums)
+        seen = set()
         for num in nums:
             if num in seen:
                 return True

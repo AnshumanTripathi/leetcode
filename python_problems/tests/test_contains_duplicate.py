@@ -2,9 +2,9 @@ from python_problems.contains_duplicate import ContainsDuplicate
 
 
 def test_contains_duplicate():
-    nums = [1, 2, 3, 1]
     check = ContainsDuplicate()
 
+    nums = [1, 2, 3, 1]
     assert check.contains_duplicate(nums)
 
     nums = [1, 2, 3, 4]
