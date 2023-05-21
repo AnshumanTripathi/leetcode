@@ -14,7 +14,6 @@ class ProbabilisticDuplicateChecker:
         self.hashes = hashes
         self.bit_array = [False] * size
         self._lock = Lock()
-        self._lookup_set = set()
 
     def add(self, value: any):
         """
@@ -24,7 +23,6 @@ class ProbabilisticDuplicateChecker:
         with self._lock:
             for index in self._get_indices(value):
                 self.bit_array[index] = True
-                self._lookup_set.add(index)
 
     def __contains__(self, value: any) -> bool:
         """
@@ -33,7 +31,9 @@ class ProbabilisticDuplicateChecker:
         :return: True if the value exists otherwise return false
         """
         for index in self._get_indices(value):
-            return index in self._lookup_set
+            if self.bit_array[index]:
+                return True
+        return False
 
     def _get_indices(self, value) -> List[int]:
         """
