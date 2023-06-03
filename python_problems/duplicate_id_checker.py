@@ -1,6 +1,8 @@
-from typing import List
+import array
 import hashlib
+import math
 from threading import Lock
+from typing import List
 
 
 class ProbabilisticDuplicateChecker:
@@ -12,7 +14,7 @@ class ProbabilisticDuplicateChecker:
         """
         self.size = size
         self.hashes = hashes
-        self.bit_array = [False] * size
+        self.bit_array = array.array('B', [0] * math.ceil(size/8))
         self._lock = Lock()
 
     def add(self, value: any):
@@ -22,7 +24,7 @@ class ProbabilisticDuplicateChecker:
         """
         with self._lock:
             for index in self._get_indices(value):
-                self.bit_array[index] = True
+                self.bit_array[index // 8] |= 1 << (index % 8)
 
     def __contains__(self, value: any) -> bool:
         """
@@ -31,9 +33,9 @@ class ProbabilisticDuplicateChecker:
         :return: True if the value exists otherwise return false
         """
         for index in self._get_indices(value):
-            if self.bit_array[index]:
-                return True
-        return False
+            if not (self.bit_array[index // 8] & (1 << index % 8)):
+                return False
+        return True
 
     def _get_indices(self, value) -> List[int]:
         """
