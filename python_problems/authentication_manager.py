@@ -14,7 +14,7 @@ class AuthenticationManager:
         self.tokens[tokenId] = currentTime + self.timeToLive
 
     def renew(self, tokenId: str, currentTime: int) -> None:
-        if tokenId in self.tokens and currentTime <= self.tokens[tokenId]:
+        if tokenId in self.tokens and currentTime < self.tokens[tokenId]:
             self.tokens[tokenId] = self.timeToLive + currentTime
 
     def countUnexpiredTokens(self, currentTime: int) -> int:

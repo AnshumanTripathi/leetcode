@@ -17,9 +17,9 @@ def test_authentication_manager():
     auth_manager.renew("ybiqb", 21)
     assert auth_manager.countUnexpiredTokens(23) == 2
     assert auth_manager.countUnexpiredTokens(25) == 2
-    assert auth_manager.countUnexpiredTokens(26) == 2
+    assert auth_manager.countUnexpiredTokens(26) == 1
     auth_manager.generate("aqdm", 28)
-    assert auth_manager.countUnexpiredTokens(29) == 2
+    assert auth_manager.countUnexpiredTokens(29) == 1
     auth_manager.renew("puv", 30)
 
 
