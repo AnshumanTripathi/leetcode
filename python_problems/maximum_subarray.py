@@ -6,7 +6,7 @@ class MaximumSubArray:
         max_sum = current_sum = nums[0]
         if len(nums) == 1:
             return nums[0]
-        for i, num in enumerate(nums[1:], start=1):
+        for _, num in enumerate(nums[1:]):
             current_sum = max(current_sum + num, num)
             max_sum = max(current_sum, max_sum)
         return max_sum
