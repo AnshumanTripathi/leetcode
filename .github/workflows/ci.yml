@@ -18,12 +18,14 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 11
+          distribution: 'temurin'
       - name: Build with Maven
         run: mvn -B package --file pom.xml
       - name: Setup python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+          cache: 'pip'
       - name: Install python packages
         run: |
           cd python_problems
